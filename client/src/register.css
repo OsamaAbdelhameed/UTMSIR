@@ -1,0 +1,942 @@
+body {
+    background-color: rgb(198, 186, 116);
+}
+
+.signup-dekstopregister-signup-dekstopregister {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.signup-dekstopregister-utmsi-logo11 {
+    top: 28px;
+    left: 140px;
+    width: 453px;
+    height: 206px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-image43308431 {
+    top: 182px;
+    left: 572px;
+    width: 922px;
+    height: 616px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 308px;
+}
+
+.signup-dekstopregister-rectangle2 {
+    top: 260px;
+    left: 80px;
+    width: 280px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+.signup-dekstopregister-rectangle3 {
+    top: 260px;
+    left: 381px;
+    width: 280px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+.signup-dekstopregister-line1 {
+    top: 360px;
+    left: 360px;
+    width: 280px;
+    height: 0px;
+    position: absolute;
+}
+
+.signup-dekstopregister-line2 {
+    top: 360px;
+    left: 661px;
+    width: 280px;
+    height: 0px;
+    position: absolute;
+}
+
+.signup-dekstopregister-text {
+    top: 351px;
+    left: 365px;
+    color: rgba(104, 104, 104, 1);
+    width: 14px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-rectangle4 {
+    top: 429px;
+    left: 80px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(248, 54, 54, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-rectangle5 {
+    top: 429px;
+    left: 381px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-text02 {
+    top: 406px;
+    left: 79px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text04 {
+    top: 436px;
+    left: 90px;
+    color: rgba(68, 68, 68, 1);
+    width: 81px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text06 {
+    top: 436px;
+    left: 391px;
+    color: rgba(180, 180, 180, 1);
+    width: 32px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text08 {
+    top: 405px;
+    left: 380px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-rectangle6 {
+    top: 498px;
+    left: 80px;
+    width: 279px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-text10 {
+    top: 504px;
+    left: 90px;
+    color: rgba(180, 180, 180, 1);
+    width: 134px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-rectangle10 {
+    top: 636px;
+    left: 80px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-text12 {
+    top: 643px;
+    left: 90px;
+    color: rgba(180, 180, 180, 1);
+    width: 91px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-rectangle8 {
+    top: 567px;
+    left: 80px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-rectangle9 {
+    top: 567px;
+    left: 381px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-rectangle7 {
+    top: 498px;
+    left: 381px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-rectangle11 {
+    top: 637px;
+    left: 381px;
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+}
+
+.signup-dekstopregister-rectangle13 {
+    top: 727px;
+    left: 80px;
+    width: 149px;
+    height: 30px;
+    position: absolute;
+    border-color: rgba(0, 0, 0, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.signup-dekstopregister-text14 {
+    top: 475px;
+    left: 79px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text16 {
+    top: 613px;
+    left: 79px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text18 {
+    top: 733px;
+    left: 106px;
+    color: rgba(255, 255, 255, 1);
+    width: 96px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text20 {
+    top: 544px;
+    left: 79px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text22 {
+    top: 474px;
+    left: 380px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text24 {
+    top: 613px;
+    left: 380px;
+    color: rgba(104, 104, 104, 1);
+    width: 128px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text26 {
+    top: 544px;
+    left: 380px;
+    color: rgba(104, 104, 104, 1);
+    width: 68px;
+    height: auto;
+    position: absolute;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-polygon1 {
+    top: 588px;
+    left: 334px;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+}
+
+.signup-dekstopregister-polygon2 {
+    top: 588px;
+    left: 634px;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+}
+
+.signup-dekstopregister-text28 {
+    top: 574px;
+    left: 89px;
+    color: rgba(104, 104, 104, 1);
+    width: 38px;
+    height: auto;
+    position: absolute;
+    font-size: 11px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text30 {
+    top: 574px;
+    left: 389px;
+    color: rgba(104, 104, 104, 1);
+    width: 38px;
+    height: auto;
+    position: absolute;
+    font-size: 11px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text32 {
+    top: 644px;
+    left: 390px;
+    color: rgba(104, 104, 104, 1);
+    width: 87px;
+    height: auto;
+    position: absolute;
+    font-size: 11px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text34 {
+    top: 685px;
+    left: 101px;
+    color: rgba(104, 104, 104, 1);
+    width: 326px;
+    height: auto;
+    position: absolute;
+    font-size: 11px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text35 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text36 {
+    color: rgba(38, 54, 197, 1);
+}
+
+.signup-dekstopregister-text37 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text38 {
+    color: rgba(38, 54, 197, 1);
+}
+
+.signup-dekstopregister-text39 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text40 {
+    color: rgba(38, 54, 197, 1);
+}
+
+.signup-dekstopregister-text42 {
+    top: 774px;
+    left: 80px;
+    color: rgba(104, 104, 104, 1);
+    width: 280px;
+    height: auto;
+    position: absolute;
+    font-size: 9px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text43 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text44 {
+    color: rgba(38, 54, 197, 1);
+}
+
+.signup-dekstopregister-text45 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text46 {
+    color: rgba(38, 54, 197, 1);
+}
+
+.signup-dekstopregister-rectangle12 {
+    top: 686px;
+    left: 80px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    border-color: rgba(196, 196, 196, 1);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 1px;
+}
+
+.signup-dekstopregister-line3 {
+    top: 498px;
+    left: 411px;
+    width: 30px;
+    height: 0px;
+    position: absolute;
+}
+
+.signup-dekstopregister-text48 {
+    top: 507px;
+    left: 385px;
+    color: rgba(104, 104, 104, 1);
+    width: 20px;
+    height: auto;
+    position: absolute;
+    font-size: 10px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text50 {
+    top: 507px;
+    left: 419px;
+    color: rgba(180, 180, 180, 1);
+    width: 61px;
+    height: auto;
+    position: absolute;
+    font-size: 10px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-image2edb1dd1031522adf18185634af8560b1 {
+    top: 647px;
+    left: 634px;
+    width: 17px;
+    height: 10px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-text52 {
+    top: 271px;
+    left: 140px;
+    color: rgba(255, 255, 255, 1);
+    width: 171px;
+    height: auto;
+    position: absolute;
+    font-size: 18px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text54 {
+    top: 271px;
+    left: 434px;
+    color: rgba(255, 255, 255, 1);
+    width: 189px;
+    height: auto;
+    position: absolute;
+    font-size: 18px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text56 {
+    top: 743px;
+    left: 500px;
+    color: rgba(104, 104, 104, 1);
+    width: 161px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text57 {
+    color: rgba(104, 104, 104, 1);
+}
+
+.signup-dekstopregister-text58 {
+    color: rgba(0, 0, 0, 1);
+    text-decoration: NONE;
+}
+
+.signup-dekstopregister-text60 {
+    top: 961px;
+    left: 464px;
+    color: rgba(32, 33, 36, 1);
+    width: 31px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text62 {
+    top: 961px;
+    left: 535px;
+    color: rgba(32, 33, 36, 1);
+    width: 49px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text64 {
+    top: 961px;
+    left: 624px;
+    color: rgba(32, 33, 36, 1);
+    width: 49px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-polygon4 {
+    top: 973px;
+    left: 227px;
+    width: 9px;
+    height: 9px;
+    position: absolute;
+}
+
+.signup-dekstopregister-text66 {
+    top: 961px;
+    left: 80px;
+    color: rgba(32, 33, 36, 1);
+    width: 141px;
+    height: auto;
+    position: absolute;
+    font-size: 13px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-ellipse1 {
+    top: 466px;
+    left: 80px;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-text68 {
+    top: 466px;
+    left: 83px;
+    color: rgba(236, 236, 236, 1);
+    width: 2px;
+    height: auto;
+    position: absolute;
+    font-size: 6px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-text69 {
+    top: 466px;
+    left: 91px;
+    color: rgba(232, 80, 80, 1);
+    width: 52px;
+    height: auto;
+    position: absolute;
+    font-size: 6px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: DM Sans;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+}
+
+.signup-dekstopregister-showpasswordicon31 {
+    top: 657px;
+    left: 351px;
+    width: 17px;
+    height: 10px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-line4 {
+    top: 942px;
+    left: 80px;
+    width: 581px;
+    height: 0px;
+    position: absolute;
+}
+
+.signup-dekstopregister-digitalnomad1 {
+    top: 476px;
+    left: 796px;
+    width: 644px;
+    height: 563px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-peopledebating21 {
+    top: 129.3720703125px;
+    left: 670.7337646484375px;
+    width: 663px;
+    height: 529px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-monoto-logo1 {
+    top: 86px;
+    left: 80px;
+    width: 128px;
+    height: 63px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.signup-dekstopregister-image58361 {
+    top: 126px;
+    left: 682px;
+    width: 758px;
+    height: 672px;
+    position: absolute;
+    border-color: transparent;
+}

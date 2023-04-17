@@ -1,0 +1,72 @@
+.login-utmsir-logo {
+    width: 35vw;
+    height: 28vh;
+}
+
+.login-image {
+    flex: 1;
+    /* width: 50vw; */
+    height: 40vh;
+    margin-top: 35vh;
+    border-radius: 308px;
+}
+
+@media (max-width: 768px) {
+    .login-utmsir-logo {
+        width: 60vw;
+        height: 50vh;
+    }
+    .login-image {
+        width: 0;
+        height: 0;
+    }
+}
+
+button {
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 1rem;
+    color: white;
+    height: 6vh;
+}
+
+.outside-login-btn {
+    width: 15vw;
+}
+
+.inside-login-btn {
+    width: 10vw;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.google-btn {
+    background-color: #F44242;
+}
+
+.face-btn {
+    background-color: #3B5998;
+}
+
+.auth-btn {
+    background-color: var(--primary-color);
+    margin-left: 13.5%;
+}
+
+.login-text {
+    display: flex;
+    justify-content: space-around;
+    color: rgba(104, 104, 104, 1);
+    width: 30vw;
+    font-size: 1.2vw;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    text-align: left;
+}
+
+hr {
+    width: 25vh;
+}
