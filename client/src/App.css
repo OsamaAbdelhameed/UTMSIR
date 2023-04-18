@@ -5,6 +5,24 @@
     --primary-background-color: #e3eee4;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Target the thumb */
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--golden-color);
+}
+
+
+/* Target the track */
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
 h1,
 h2,
 h3,

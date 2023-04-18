@@ -14,9 +14,10 @@ import "./login.css";
 const cookies = new Cookies();
 const fileApi = "A1k2ydUGKQDCtHaCnNuwYz";
 
-const Login = () => {
+const Auth = () => {
 	const [isSignup, setSignup] = useState(true);
 	const [form, setForm] = useState({});
+	const [image, setImage] = useState("");
 
 	// isFile used to show if upload file checkbox is checked or not to display file input
 	const [isFile, setIsFile] = useState(false);
@@ -28,13 +29,47 @@ const Login = () => {
 		{ value: "f", label: "Female" },
 	];
 
-	const handleSubmit = (e) => {};
-	const handleChange = (e) => {};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(form);
+		// const URL = "https://chatoo-sg.herokuapp.com/auth";
+		const URL = "http://localhost:5000/auth";
 
-	useEffect(() => {
-		if (isFile) {
+		const MySwal = withReactContent(Swal);
+		try {
+			const {
+				data: { token, userId, hashedPassword, firstName, lastName },
+			} = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
+				...form,
+			});
+
+			cookies.set("token", token);
+			cookies.set("username", firstName + " " + lastName);
+			cookies.set("userId", userId);
+
+			if (isSignup) {
+				cookies.set("img", form.img);
+				cookies.set("hashedPassword", hashedPassword);
+				MySwal.fire(<p>Sign up done successfully</p>);
+			} else {
+				MySwal.fire(<p>Sign in done successfully</p>);
+			}
+
+			window.location.reload();
+		} catch (e) {
+			MySwal.fire(<p>Wrong inputs</p>);
 		}
-	}, [form.avatar]);
+	};
+
+	const handleChange = (e) => {
+		setForm({ ...form, [e.target.name]: e.target.value });
+		console.log(form);
+	};
+
+	// useEffect(() => {
+	// 	if (isFile) {
+	// 	}
+	// }, [form.avatar]);
 
 	return (
 		<div className="auth-container">
@@ -94,6 +129,7 @@ const Login = () => {
 						/>
 					</div>
 					{isSignup && (
+						<>
 							<div className="input-field">
 								<label htmlFor="gender">Gender</label>
 								<Select
@@ -101,11 +137,14 @@ const Login = () => {
 									classNamePrefix="select"
 									defaultValue={genderOps[0]}
 									isSearchable={true}
-									name="gender"
 									options={genderOps}
+									name="gender"
+									onChange={(option) => {
+										setForm({ ...form, gender: option.value });
+										console.log(form);
+									}}
 								/>
 							</div>
-						) && (
 							<div className="input-field">
 								<label htmlFor="age">Age</label>
 								<input
@@ -117,7 +156,77 @@ const Login = () => {
 									required
 								/>
 							</div>
-						)}
+							<div className="norm">
+								<input
+									type="checkbox"
+									name="uploadImg"
+									onChange={() => setIsFile(!isFile)}
+								/>
+								<label htmlFor="uploadImg">Upload Picture</label>
+							</div>
+							{isFile ? (
+								<div className="avatar img input-field">
+									<label htmlFor="img">Upload Image (.png, .jpg)</label>
+									{image ? (
+										<img
+											src={image && image.filesUploaded[0].url}
+											alt="imageUploded"
+											style={{ width: 75, height: 75 }}
+										/>
+									) : (
+										<div className="auth__form-container_fields-content_button">
+											<button
+												className="inside-login-btn face-btn"
+												onClick={() =>
+													isPicker ? setIsPicker(false) : setIsPicker(true)
+												}
+											>
+												Choose Image
+											</button>
+										</div>
+									)}
+									{isPicker && (
+										<PickerOverlay
+											apikey={fileApi}
+											onSuccess={(res) => {
+												console.log(res);
+												setImage(res);
+												setForm({ ...form, img: res.filesUploaded[0].url });
+												setIsPicker(false);
+											}}
+											onError={(res) => alert(res)}
+											pickerOptions={{
+												maxFiles: 1,
+												accept: ["image/*"],
+												errorsTimeout: 2000,
+												maxSize: 1 * 1000 * 1000,
+											}}
+										/>
+									)}
+								</div>
+							) : (
+								<div className="avatar input-field">
+									<label htmlFor="avatarURL" className="longlabel">
+										Avatar URL
+									</label>
+									<input
+										type="text"
+										name="img"
+										placeholder="Personal image URL"
+										onChange={handleChange}
+										required
+									/>
+								</div>
+							)}
+						</>
+					)}
+					{!isFile && form.img && (
+						<img
+							src={form.img}
+							alt="imageUploded"
+							style={{ width: 75, height: 75 }}
+						/>
+					)}
 					<div className="input-field">
 						<label htmlFor="password">Password</label>
 						<input
@@ -136,6 +245,11 @@ const Login = () => {
 							Reset
 						</button>
 					</div>
+					<p onClick={() => setSignup(!isSignup)}>
+						{isSignup
+							? "Already have account? Sign In"
+							: "Don't have an account Sign Up"}
+					</p>
 				</form>
 			</div>
 			<img alt="IMAGE433084327788" src={green} className="login-image" />
@@ -143,4 +257,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Auth;
