@@ -4,9 +4,21 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "nodemon index.js",
+        "dev": "nodemon index.js",
+        "test": "mocha server/**/*.test.js --timeout 10000"
     },
     "keywords": [],
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "chalk": "^4.1.2",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "dotenv": "^16.0.3",
+        "express": "^4.17.3",
+        "mongoose": "^7.0.4",
+        "nodemon": "^2.0.16"
+    },
     "author": "",
     "license": "ISC"
 }
