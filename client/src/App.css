@@ -127,3 +127,45 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--golden-color);
+}
+
+
+/* Set a background color for the footer */
+
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/* Style links in the footer */
+
+footer ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+footer li {
+    margin-right: 10px;
+}
+
+footer i {
+    font-size: 24px;
+}

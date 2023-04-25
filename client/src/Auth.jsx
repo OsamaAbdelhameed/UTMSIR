@@ -10,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import logo from "./img/logo.png";
 import green from "./img/green.png";
 import "./login.css";
+import { URL } from "./Consts";
 
 const cookies = new Cookies();
 const fileApi = "A1k2ydUGKQDCtHaCnNuwYz";
@@ -32,14 +33,12 @@ const Auth = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(form);
-		// const URL = "https://chatoo-sg.herokuapp.com/auth";
-		const URL = "http://localhost:5000/auth";
 
 		const MySwal = withReactContent(Swal);
 		try {
 			const {
 				data: { token, userId, hashedPassword, firstName, lastName },
-			} = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
+			} = await axios.post(`${URL}/auth/${isSignup ? "signup" : "login"}`, {
 				...form,
 			});
 
