@@ -26,10 +26,8 @@ const signup = async(req, res) => {
     try {
         const { fullName, userName, phone, password, avatarURL } = req.body;
         const userId = crypto.randomBytes(16).toString('hex');
-        const serverClient = connect(api_key, api_secret, api_id);
         const hashedPassword = await bcrypt.hash(password, 10);
-        const token = serverClient.createUserToken(userId);
-        res.status(200).json({ token, fullName, userName, userId, hashedPassword, phone });
+        res.status(200).json({ name, userId, hashedPassword, phone });
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: error })

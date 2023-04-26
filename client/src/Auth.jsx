@@ -10,25 +10,19 @@ import withReactContent from "sweetalert2-react-content";
 import logo from "./img/logo.png";
 import green from "./img/green.png";
 import "./login.css";
-import { URL } from "./Consts";
+import { URL, fileApi, roleOps, genderOps } from "./Consts";
 
 const cookies = new Cookies();
-const fileApi = "A1k2ydUGKQDCtHaCnNuwYz";
 
 const Auth = () => {
 	const [isSignup, setSignup] = useState(true);
-	const [form, setForm] = useState({});
+	const [form, setForm] = useState({ gender: "m", role: "s" });
 	const [image, setImage] = useState("");
 
 	// isFile used to show if upload file checkbox is checked or not to display file input
 	const [isFile, setIsFile] = useState(false);
 	// isFile used to show if upload file checkbox is checked or not to display file input
 	const [isPicker, setIsPicker] = useState(false);
-
-	const genderOps = [
-		{ value: "m", label: "Male" },
-		{ value: "f", label: "Female" },
-	];
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,14 +31,15 @@ const Auth = () => {
 		const MySwal = withReactContent(Swal);
 		try {
 			const {
-				data: { token, userId, hashedPassword, firstName, lastName },
+				data: { token, email, hashedPassword, name, role },
 			} = await axios.post(`${URL}/auth/${isSignup ? "signup" : "login"}`, {
 				...form,
 			});
 
 			cookies.set("token", token);
-			cookies.set("username", firstName + " " + lastName);
-			cookies.set("userId", userId);
+			cookies.set("username", name);
+			cookies.set("email", email);
+			cookies.set("role", role);
 
 			if (isSignup) {
 				cookies.set("img", form.img);
@@ -90,32 +85,32 @@ const Auth = () => {
 				</span>
 				<form onSubmit={handleSubmit}>
 					{isSignup && (
-						<div className="input-field">
-							<label htmlFor="firstName" className="longlabel">
-								First Name
-							</label>
-							<input
-								type="text"
-								name="firstName"
-								placeholder="First Name from Matric Card"
-								onChange={handleChange}
-								required
-							/>
-						</div>
-					)}
-					{isSignup && (
-						<div className="input-field">
-							<label htmlFor="lastName" className="longlabel">
-								Last Name
-							</label>
-							<input
-								type="text"
-								name="lastName"
-								placeholder="Last Name from Matric Card"
-								onChange={handleChange}
-								required
-							/>
-						</div>
+						<>
+							<div className="input-field">
+								<label htmlFor="firstName" className="longlabel">
+									First Name
+								</label>
+								<input
+									type="text"
+									name="firstName"
+									placeholder="First Name from Matric Card/IKad"
+									onChange={handleChange}
+									required
+								/>
+							</div>
+							<div className="input-field">
+								<label htmlFor="lastName" className="longlabel">
+									Last Name
+								</label>
+								<input
+									type="text"
+									name="lastName"
+									placeholder="Last Name from Matric Card/IKad"
+									onChange={handleChange}
+									required
+								/>
+							</div>
+						</>
 					)}
 					<div className="input-field">
 						<label htmlFor="email">Email</label>
@@ -140,6 +135,21 @@ const Auth = () => {
 									name="gender"
 									onChange={(option) => {
 										setForm({ ...form, gender: option.value });
+										console.log(form);
+									}}
+								/>
+							</div>
+							<div className="input-field">
+								<label htmlFor="Role">Role</label>
+								<Select
+									className="basic-single"
+									classNamePrefix="select"
+									defaultValue={roleOps[0]}
+									isSearchable={true}
+									options={roleOps}
+									name="role"
+									onChange={(option) => {
+										setForm({ ...form, role: option.value });
 										console.log(form);
 									}}
 								/>
@@ -225,6 +235,32 @@ const Auth = () => {
 							alt="imageUploded"
 							style={{ width: 75, height: 75 }}
 						/>
+					)}
+					{form.role === "s" ? (
+						<div className="input-field">
+							<label htmlFor="study" className="longlabel">
+								Field
+							</label>
+							<input
+								type="text"
+								name="field"
+								placeholder="Specialization taken in UTM"
+								onChange={handleChange}
+								required
+							/>
+						</div>
+					) : (
+						<div className="input-field">
+							<label htmlFor="houses">Number of Properties</label>
+							<input
+								type="number"
+								name="numOfHouses"
+								min="0"
+								placeholder="Number of houses available for rent"
+								onChange={handleChange}
+								required
+							/>
+						</div>
 					)}
 					<div className="input-field">
 						<label htmlFor="password">Password</label>
