@@ -27,28 +27,4 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model('Post', postSchema);
 
-const joiCommentSchema = Joi.object({
-    img: Joi.string().required(),
-    title: Joi.string().required(),
-    content: Joi.string().required(),
-});
-
-const validateComment = (data) => joiCommentSchema.validate(data);
-
-const validatePost = (data) => {
-    const joiPostSchema = Joi.object({
-        title: Joi.string().required(),
-        desc: Joi.string().required(),
-        location: Joi.string().required(),
-        imgs: Joi.array().items(Joi.string()).required(),
-        price: Joi.number().required(),
-        bedsNum: Joi.number().required(),
-        area: Joi.number().required(),
-        numOfReqs: Joi.number().required(),
-        comments: Joi.array().items(joiCommentSchema).required(),
-        owner: Joi.string().required(),
-    });
-    return joiPostSchema.validate(data);
-};
-
-module.exports = { Comment, Post, validateComment, validatePost };
+module.exports = { Comment, Post };

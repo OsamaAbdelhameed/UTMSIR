@@ -165,6 +165,18 @@ const Auth = () => {
 									required
 								/>
 							</div>
+							<div className="input-field">
+								<label htmlFor="phone" className="longlabel">
+									Phone
+								</label>
+								<input
+									type="text"
+									name="phone"
+									placeholder="Phone number with whatsapp account"
+									onChange={handleChange}
+									required
+								/>
+							</div>
 							<div className="norm">
 								<input
 									type="checkbox"

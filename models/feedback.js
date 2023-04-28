@@ -10,13 +10,4 @@ const feedbackSchema = new mongoose.Schema({
 
 const Feedback = mongoose.model('Feedback', feedbackSchema)
 
-const joiFeedbackSchema = Joi.object({
-    opinion: Joi.string().required(),
-    efficient: Joi.number().required(),
-    logical: Joi.number().required(),
-    useful: Joi.number().required(),
-});
-
-const validate = (data) => joiFeedbackSchema.validate(data);
-
-module.exports = { Feedback, joiFeedbackSchema, validate };
+module.exports = { Feedback, joiFeedbackSchema };

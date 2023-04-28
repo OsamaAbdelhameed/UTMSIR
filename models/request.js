@@ -18,16 +18,4 @@ const requestSchema = new mongoose.Schema({
 
 const Request = mongoose.model('Request', requestSchema)
 
-const validate = (data) => {
-    const joiRequestSchema = Joi.object({
-        desc: Joi.string().required(),
-        price: Joi.string().required(),
-        status: Joi.string().required(),
-        arrivalDate: Joi.string().required(),
-        owner: Joi.string().required(),
-        post: Joi.string().required(),
-    });
-    return joiRequestSchema.validate(data);
-};
-
-module.exports = { Request, validate };
+module.exports = { Request };
