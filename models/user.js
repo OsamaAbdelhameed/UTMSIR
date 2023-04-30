@@ -10,11 +10,12 @@ const userSchema = new mongoose.Schema({
     role: { type: String, required: true },
     img: { type: String, required: true },
     age: { type: Number, required: true },
-    numOfHouses: { type: Number },
+    numOfHouses: Number,
+    state: String,
 });
 
 userSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({ _id: this._id, email: this.email, name: this.name, role: this.role }, process.env.SECRETKEY);
+    const token = jwt.sign({ id: this._id, email: this.email, name: this.name, role: this.role }, process.env.SECRETKEY);
     return token;
 };
 

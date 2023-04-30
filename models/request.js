@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
 
 const requestSchema = new mongoose.Schema({
     desc: { type: String, required: true },
@@ -13,6 +12,10 @@ const requestSchema = new mongoose.Schema({
     post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
+    },
+    postOwner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 

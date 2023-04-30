@@ -8,9 +8,9 @@ require('dotenv').config();
 
 const { Logging } = require('./library/logging');
 
-const authRoutes = require("./routes/auth.js");
+const authRoutes = require("./routes/user.js");
 const adminRoutes = require("./routes/admin.js");
-const flatRoutes = require("./routes/flat.js");
+const postRoutes = require("./routes/post.js");
 const recommendRoutes = require("./routes/recommend.js");
 
 const router = express();
@@ -64,9 +64,9 @@ const StartServer = () => {
     });
 
     /** Routes */
-    router.use('/auth', authRoutes);
-    // router.use('/admin', adminRoutes);
-    // router.use('/flat', flatRoutes);
+    router.use('/user', authRoutes);
+    router.use('/admin', adminRoutes);
+    router.use('/post', postRoutes);
     // router.use('/recommend', recommendRoutes);
 
     /** Healthcheck */
