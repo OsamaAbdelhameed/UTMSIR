@@ -1,5 +1,33 @@
 const { Request } = require("../models/request");
 
+const createRequest = async(req, res) => {
+    if (req.user.role !== 's')
+        return res.status(400).send({ message: 'Students only are allowed to create requests' });
+
+    const request = new Request({...req.body });
+
+    return await request
+        .save()
+        .then((reque) => res.status(200).send({ request: reque, message: 'Request created successfully' }))
+        .catch((err) => res.status(500).send({ message: err.message }));
+}
+
+const updateRequest = async(req, res) => {
+    const id = req.params.id;
+    try {
+        const request = await Request.findById(id);
+        if (req.user.id !== request.owner)
+            return res.status(500).send({ message: "You aren't the owner of this request" })
+        return request
+            .set(req.body)
+            .save()
+            .then((request) => res.status(200).json({ request }))
+            .catch((err) => res.status(500).json({ err }))
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
 const getAllRequests = async(req, res) => {
     return await Request.find()
         .then((requests) => {
@@ -32,5 +60,22 @@ const changeRequestState = async(req, res) => {
     }
 }
 
+const deleteRequest = async(req, res) => {
+    if (req.user.role === 's')
+        return res.status(400).send({ message: "Students aren't allowed to delete other users' requests" });
 
-module.exports = { getAllRequests, changeRequestState }
+    try {
+        const { id } = req.params;
+        const request = await Request.findById(id);
+        if (req.user.role !== 'a' && req.user.id !== request.owner)
+            return res.status(400).send({ message: "You need to be an admin or request's owner" });
+
+        return post.deleteOne({ _id: id })
+            .then((post) => res.status(200).json({ post }))
+            .catch((err) => res.status(500).json({ err }));
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+module.exports = { createRequest, updateRequest, getAllRequests, changeRequestState, deleteRequest }

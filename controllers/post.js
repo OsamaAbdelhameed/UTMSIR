@@ -1,14 +1,14 @@
 const { Comment, Post } = require("../models/post");
 
 const createPost = async(req, res) => {
-    if (req.user.role === 'ag' || req.user.role === 'o')
+    if (req.user.role === 'a' || req.user.role === 's')
         return res.status(400).send({ message: 'Agents and owners only are allowed to create posts' });
 
     const post = new Post({...req.body });
 
     return await post
         .save()
-        .then(() => res.status(200).send({ message: 'Post created successfully' }))
+        .then((p) => res.status(200).send({ post: p, message: 'Post created successfully' }))
         .catch((err) => res.status(500).send({ message: err.message }));
 }
 
@@ -54,7 +54,6 @@ const changePostState = async(req, res) => {
     }
 }
 
-
 const deletePost = async(req, res) => {
     if (req.user.role === 's')
         return res.status(400).send({ message: "Students aren't allowed to delete other users' posts" });
@@ -78,12 +77,11 @@ const addComment = async(req, res) => {
 
     const comment = new Comment({...req.body });
 
-    await post.updateOne({ _id: id }, {
-        '$set': {
-            comments: articleInfo.comments.concat(comment)
-        }
-    })
-    return await post.findOne({ _id: id }).then(() => res.status(200).json(updatedPost))
+    return await Post.updateOne({ _id: id }, {
+            '$push': {
+                comments: comment
+            }
+        }).then((updatedPost) => res.status(200).json(updatedPost))
         .catch((err) => res.status(500).json({ err }));
 }
 

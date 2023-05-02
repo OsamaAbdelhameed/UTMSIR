@@ -8,6 +8,10 @@ const login = async(req, res) => {
         const user = await User.findOne({ email })
         if (!user)
             return res.status(400).send({ message: "Email is not Existed!" });
+        if (user.state === 'new')
+            return res.status(400).send({ message: "Admin didn't accept you yet!" });
+        else if (user.state !== 'active')
+            return res.status(400).send({ message: "Sorry admin has been " + user.state + "d you!" });
 
         const success = await bcrypt.compare(password, user.password);
         if (!success) {
@@ -15,7 +19,7 @@ const login = async(req, res) => {
         }
 
         const token = user.generateAuthToken();
-        res.status(200).json({ token, message: "logged in successfully" });
+        res.status(200).json({ token, id: user._id, name: user.name, role: user.role, message: "logged in successfully" });
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -33,7 +37,7 @@ const signup = async(req, res) => {
         if (existed)
             return res.status(500).send({ message: 'Email already exists' })
 
-        const user = new User({...req.body, name, password: hashedPassword });
+        const user = new User({...req.body, name, password: hashedPassword, state: 'new' });
 
         return await user.save()
             .then((user) => res.status(200).json({ user }))

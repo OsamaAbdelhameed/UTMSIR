@@ -11,6 +11,7 @@ const { Logging } = require('./library/logging');
 const authRoutes = require("./routes/user.js");
 const adminRoutes = require("./routes/admin.js");
 const postRoutes = require("./routes/post.js");
+const requestRoutes = require("./routes/request.js");
 const recommendRoutes = require("./routes/recommend.js");
 
 const router = express();
@@ -67,6 +68,7 @@ const StartServer = () => {
     router.use('/user', authRoutes);
     router.use('/admin', adminRoutes);
     router.use('/post', postRoutes);
+    router.use('/request', requestRoutes);
     // router.use('/recommend', recommendRoutes);
 
     /** Healthcheck */

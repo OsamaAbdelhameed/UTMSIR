@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaDoorOpen } from "react-icons/fa";
 import logo from "../img/logo.png";
 import "../nav.css";
+import { name, cookies, role } from "../Consts";
 
 const Navbar = () => {
 	const navRef = useRef();
@@ -11,24 +12,40 @@ const Navbar = () => {
 		navRef.current.classList.toggle("responsive_nav");
 	};
 
-	const logout = () => {};
+	const logout = () => {
+		cookies.remove("token");
+		cookies.remove("username");
+		cookies.remove("email");
+		cookies.remove("role");
+
+		window.location.reload();
+	};
 
 	return (
 		<header>
 			<img alt="UTMSIRLogo" src={logo} height="80vh" />
 			<nav ref={navRef}>
 				<Link to="/" className="a">
-					Amazing Posts
+					{role === "s" && "Amazing"} Posts {role !== "s" && "List"}
 				</Link>
-				<Link to="/mates" className="a">
-					Possible Mates
-				</Link>
+				{role === "a" && (
+					<Link to="/manage-user" className="a">
+						Users List
+					</Link>
+				)}
+				{role === "s" && (
+					<Link to="/mates" className="a">
+						Possible Mates
+					</Link>
+				)}
 				<Link to="/requests" className="a">
-					Requests
+					Requests List
 				</Link>
-				<Link to="/recommend" className="a">
-					Recommendations
-				</Link>
+				{role === "s" && role === "a" && (
+					<Link to="/recommend" className="a">
+						Recommendations {role !== "s" && "List"}
+					</Link>
+				)}
 				<Link to="/about" className="a">
 					About Us
 				</Link>
@@ -37,7 +54,7 @@ const Navbar = () => {
 				</button>
 			</nav>
 			<div>
-				<Link to="/profile">Hi, User</Link>
+				<Link to="/profile">Hi, {name}</Link>
 				<button className="nav-logout" onClick={logout}>
 					<FaDoorOpen />
 				</button>

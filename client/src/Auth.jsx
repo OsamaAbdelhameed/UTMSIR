@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 
-import Cookies from "universal-cookie";
 import axios from "axios";
 import { PickerOverlay } from "filestack-react";
 import Swal from "sweetalert2";
@@ -10,9 +9,7 @@ import withReactContent from "sweetalert2-react-content";
 import logo from "./img/logo.png";
 import green from "./img/green.png";
 import "./login.css";
-import { URL, fileApi, roleOps, genderOps } from "./Consts";
-
-const cookies = new Cookies();
+import { URL, fileApi, roleOps, genderOps, cookies } from "./Consts";
 
 const Auth = () => {
 	const [isSignup, setSignup] = useState(true);
@@ -27,23 +24,24 @@ const Auth = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(form);
+		form.gender = form.genchar === "m" ? false : true;
 
 		const MySwal = withReactContent(Swal);
 		try {
 			const {
-				data: { token, email, hashedPassword, name, role },
-			} = await axios.post(`${URL}/auth/${isSignup ? "signup" : "login"}`, {
+				data: { token, id, name, role },
+			} = await axios.post(`${URL}/user/${isSignup ? "signup" : "login"}`, {
 				...form,
 			});
 
+			console.log(token, name, id, role);
+
 			cookies.set("token", token);
 			cookies.set("username", name);
-			cookies.set("email", email);
+			cookies.set("id", id);
 			cookies.set("role", role);
 
 			if (isSignup) {
-				cookies.set("img", form.img);
-				cookies.set("hashedPassword", hashedPassword);
 				MySwal.fire(<p>Sign up done successfully</p>);
 			} else {
 				MySwal.fire(<p>Sign in done successfully</p>);
@@ -51,7 +49,13 @@ const Auth = () => {
 
 			window.location.reload();
 		} catch (e) {
-			MySwal.fire(<p>Wrong inputs</p>);
+			// console.log(e.status);
+			// console.log(e.response);
+			let msg = e.message;
+			if (e.response.status === 422) {
+				msg = e.response.data.err.details[0].message;
+			}
+			MySwal.fire(<p>{msg}</p>);
 		}
 	};
 
@@ -59,11 +63,6 @@ const Auth = () => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 		console.log(form);
 	};
-
-	// useEffect(() => {
-	// 	if (isFile) {
-	// 	}
-	// }, [form.avatar]);
 
 	return (
 		<div className="auth-container">
@@ -132,9 +131,9 @@ const Auth = () => {
 									defaultValue={genderOps[0]}
 									isSearchable={true}
 									options={genderOps}
-									name="gender"
+									name="genchar"
 									onChange={(option) => {
-										setForm({ ...form, gender: option.value });
+										setForm({ ...form, genchar: option.value });
 										console.log(form);
 									}}
 								/>
@@ -248,7 +247,7 @@ const Auth = () => {
 							style={{ width: 75, height: 75 }}
 						/>
 					)}
-					{form.role === "s" ? (
+					{isSignup && form.role === "s" ? (
 						<div className="input-field">
 							<label htmlFor="study" className="longlabel">
 								Field
@@ -262,17 +261,19 @@ const Auth = () => {
 							/>
 						</div>
 					) : (
-						<div className="input-field">
-							<label htmlFor="houses">Number of Properties</label>
-							<input
-								type="number"
-								name="numOfHouses"
-								min="0"
-								placeholder="Number of houses available for rent"
-								onChange={handleChange}
-								required
-							/>
-						</div>
+						isSignup && (
+							<div className="input-field">
+								<label htmlFor="houses">Number of Properties</label>
+								<input
+									type="number"
+									name="numOfHouses"
+									min="0"
+									placeholder="Number of houses available for rent"
+									onChange={handleChange}
+									required
+								/>
+							</div>
+						)
 					)}
 					<div className="input-field">
 						<label htmlFor="password">Password</label>
@@ -297,6 +298,9 @@ const Auth = () => {
 							? "Already have account? Sign In"
 							: "Don't have an account Sign Up"}
 					</p>
+					<br />
+					<br />
+					<br />
 				</form>
 			</div>
 			<img alt="IMAGE433084327788" src={green} className="login-image" />

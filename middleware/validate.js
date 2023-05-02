@@ -19,6 +19,7 @@ const comment = Joi.object({
     img: Joi.string().required(),
     title: Joi.string().required(),
     content: Joi.string().required(),
+    owner: Joi.string().required(),
 });
 
 const Schemas = {
@@ -27,11 +28,12 @@ const Schemas = {
         lastName: Joi.string().required(),
         email: Joi.string().email().required(),
         password: passwordComplexity().required(),
-        // password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
         gender: Joi.boolean().required(),
+        phone: Joi.string().required(),
         role: Joi.string().required(),
         img: Joi.string().required(),
         age: Joi.number().required(),
+        field: Joi.string(),
         numOfHouses: Joi.number(),
         state: Joi.string(),
     }),

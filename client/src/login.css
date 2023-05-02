@@ -16,9 +16,9 @@
         width: 60vw;
         height: 50vh;
     }
+
     .login-image {
-        width: 0;
-        height: 0;
+        display: none;
     }
 }
 

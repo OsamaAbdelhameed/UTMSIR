@@ -6,6 +6,11 @@ header {
     padding: 0 2rem;
     background-color: var(--primary-color);
     color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-bottom: 80px !important;
+    z-index: 10;
 }
 
 nav .a {
@@ -45,6 +50,7 @@ header div,
 nav {
     display: flex;
     align-items: center;
+    z-index: 10;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -66,11 +72,12 @@ nav {
         gap: 1.5rem;
         background-color: var(--mainColor);
         transition: 1s;
+        z-index: 10;
     }
 
     header .responsive_nav {
         transform: translateY(100vh);
-        z-index: 5;
+        z-index: 10;
         background-color: var(--primary-color);
     }
 
@@ -89,5 +96,6 @@ nav {
     header div {
         position: absolute;
         right: 4vw;
+        z-index: 5;
     }
 }

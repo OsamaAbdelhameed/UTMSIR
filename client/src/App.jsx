@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Auth from "./Auth";
@@ -17,8 +17,31 @@ import Apartments from "./pages/Apartments";
 import Users from "./pages/Users";
 import Footer from "./components/Footer";
 import Mates from "./pages/Mates";
+import { URL, id, token } from "./Consts";
+import axios from "axios";
 
 function App() {
+	const [user, setUser] = useState({});
+
+	const getProfile = async () => {
+		try {
+			console.log(`${URL}/user/${id}`);
+			const { data } = await axios.get(`${URL}/user/${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			setUser(data.user);
+			console.log(user);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		getProfile();
+	}, [token]);
+
+	if (!token) return <Auth />;
+
 	return (
 		<div className="container">
 			<Router>
@@ -29,7 +52,10 @@ function App() {
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/about" element={<AboutUs />} />
 					<Route path="/manage-user" element={<Users />} />
-					<Route path="/profile" element={<Profile />} />
+					<Route
+						path="/profile"
+						element={<Profile user={user} setUser={setUser} />}
+					/>
 					<Route path="/requests" element={<Requests />} />
 					<Route path="/request/:id" element={<Request />} />
 					<Route path="/apartment" element={<Apartments />} />
