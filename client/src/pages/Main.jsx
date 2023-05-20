@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { URL, id, token } from "../Consts";
+import { URL, id, role, token } from "../Consts";
 import axios from "axios";
 import ImageSlider from "../components/ImageSlider";
+import { Link } from "react-router-dom";
+import AddPost from "../components/AddPost";
 
-const Main = () => {
+const Main = ({ isAdd, setIsAdd }) => {
 	const [posts, setPosts] = useState([]);
 
 	const getPosts = async () => {
@@ -12,6 +14,7 @@ const Main = () => {
 			const { data } = await axios.get(`${URL}/post`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
+			console.log(data);
 			setPosts(data.posts);
 			console.log(posts);
 		} catch (error) {
@@ -30,20 +33,42 @@ const Main = () => {
 		getPosts();
 	}, []);
 
+	if (isAdd) return <AddPost />;
+
 	return (
-		<div className="container-form back main post-parent">
-			{posts.map((x) => (
+		<div
+			className={`back main post-parent ${
+				(role === "ag" || role === "o") && "mar"
+			}`}
+		>
+			{(role === "ag" || role === "o") && (
+				<div style={{ position: "absolute", top: "80px" }}>
+					<button
+						className="inside-login-btn face-btn"
+						onClick={() => setIsAdd(true)}
+					>
+						Add Post
+					</button>
+				</div>
+			)}
+			{posts.map((post) => (
 				<div className="post-items">
-					<h2>{x.title}</h2>
+					<h2>{post.title}</h2>
 					<div style={containerStyles}>
-						<ImageSlider slides={x.imgs} />
+						<ImageSlider slides={post.imgs} />
 					</div>
-					<h3 style={{ marginTop: "30px" }}>{x.location}</h3>
-					<h3>MYR {x.price}/Month</h3>
-					<h3>
-						{x.area}
-						<sub>sq . ft</sub>
-					</h3>
+					<Link to={"post/" + post._id} state={post}>
+						<h3 style={{ marginTop: "30px" }}>{post.location}</h3>
+						<h3>MYR {post.price}/Month</h3>
+						<h3>
+							{post.area}
+							<sub>sq . ft</sub>
+						</h3>
+					</Link>
+					<div className="btn-container">
+						<button className="inside-login-btn face-btn">Edit</button>
+						<button className="inside-login-btn google-btn">Delete</button>
+					</div>
 				</div>
 			))}
 		</div>

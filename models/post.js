@@ -24,7 +24,7 @@ const postSchema = new mongoose.Schema({
     area: { type: Number, required: true },
     numOfReqs: { type: Number, required: true },
     comments: { type: [commentSchema], required: true },
-    state: String,
+    state: { type: String, required: true },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

@@ -19,9 +19,11 @@ import Footer from "./components/Footer";
 import Mates from "./pages/Mates";
 import { URL, id, token } from "./Consts";
 import axios from "axios";
+import Post from "./pages/Post";
 
 function App() {
 	const [user, setUser] = useState({});
+	const [isAdd, setIsAdd] = useState(false);
 
 	const getProfile = async () => {
 		try {
@@ -45,9 +47,13 @@ function App() {
 	return (
 		<div className="container">
 			<Router>
-				<Navbar />
+				<Navbar setIsAdd={setIsAdd} />
 				<Routes>
-					<Route path="/" element={<Main />} />
+					<Route
+						path="/"
+						element={<Main isAdd={isAdd} setIsAdd={setIsAdd} />}
+					/>
+					<Route path="/post/:id" element={<Post />} />
 					<Route path="/mates" element={<Mates />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/about" element={<AboutUs />} />

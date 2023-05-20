@@ -38,9 +38,11 @@ const Profile = ({ user, setUser }) => {
 		}
 	};
 
+	const firstName = user.name.split(" ")[0];
+
 	return (
 		<div className="form-container back main">
-			<h1>{user.name.split(" ")[0]} Profile</h1>
+			<h1>{firstName} Profile</h1>
 			<img
 				src={user.img}
 				alt="img"

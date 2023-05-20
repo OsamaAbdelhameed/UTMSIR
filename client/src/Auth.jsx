@@ -26,35 +26,37 @@ const Auth = () => {
 		console.log(form);
 		form.gender = form.genchar === "m" ? false : true;
 
+		delete form.genchar;
 		const MySwal = withReactContent(Swal);
 		try {
 			const {
-				data: { token, id, name, role },
+				data: { token, id, name, role, img },
 			} = await axios.post(`${URL}/user/${isSignup ? "signup" : "login"}`, {
 				...form,
 			});
 
-			console.log(token, name, id, role);
-
-			cookies.set("token", token);
-			cookies.set("username", name);
-			cookies.set("id", id);
-			cookies.set("role", role);
-
 			if (isSignup) {
 				MySwal.fire(<p>Sign up done successfully</p>);
 			} else {
-				MySwal.fire(<p>Sign in done successfully</p>);
-			}
+				console.log(token, name, id, role, img);
 
-			window.location.reload();
+				cookies.set("token", token);
+				cookies.set("username", name);
+				cookies.set("id", id);
+				cookies.set("role", role);
+				cookies.set("img", img);
+				MySwal.fire(<p>Sign in done successfully</p>);
+				window.location.reload();
+			}
 		} catch (e) {
-			// console.log(e.status);
+			console.log(e);
 			// console.log(e.response);
 			let msg = e.message;
 			if (e.response.status === 422) {
 				msg = e.response.data.err.details[0].message;
 			}
+			if (e.response.status === 500 || e.response.data.message)
+				msg = e.response.data.message;
 			MySwal.fire(<p>{msg}</p>);
 		}
 	};
@@ -303,7 +305,9 @@ const Auth = () => {
 					<br />
 				</form>
 			</div>
-			<img alt="IMAGE433084327788" src={green} className="login-image" />
+			<div className="login-image-div">
+				<img alt="IMAGE433084327788" src={green} className="login-image" />
+			</div>
 		</div>
 	);
 };

@@ -3,9 +3,16 @@
     height: 28vh;
 }
 
-.login-image {
+.login-image-div {
     flex: 1;
     /* width: 50vw; */
+    /* height: 40vh; */
+    /* margin-top: 35vh; */
+    /* border-radius: 308px; */
+}
+
+.login-image {
+    position: fixed;
     height: 40vh;
     margin-top: 35vh;
     border-radius: 308px;
@@ -17,7 +24,7 @@
         height: 50vh;
     }
 
-    .login-image {
+    .login-image-div {
         display: none;
     }
 }

@@ -14,5 +14,6 @@ export const roleOps = [
 export const cookies = new Cookies();
 export const name = cookies.get("username");
 export const id = cookies.get("id");
+export const img = cookies.get("img");
 export const role = cookies.get("role");
 export const token = cookies.get("token");

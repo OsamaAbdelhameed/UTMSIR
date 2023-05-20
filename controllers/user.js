@@ -19,7 +19,7 @@ const login = async(req, res) => {
         }
 
         const token = user.generateAuthToken();
-        res.status(200).json({ token, id: user._id, name: user.name, role: user.role, message: "logged in successfully" });
+        res.status(200).json({ token, id: user._id, name: user.name, role: user.role, img: user.img, message: "logged in successfully" });
     } catch (error) {
         res.status(500).json({ error })
     }

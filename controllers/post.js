@@ -29,7 +29,11 @@ const updatePost = async(req, res) => {
 }
 
 const getAllPosts = async(req, res) => {
-    return await Post.find()
+    let filter = {}
+    if (req.user.role === 'ag' || req.user.role === 'o')
+        filter = { owner: req.user.id }
+
+    return await Post.find(filter)
         .then((posts) => res.status(200).json({ posts }))
         .catch((err) => res.status(500).json({ err }));
 }
@@ -41,7 +45,7 @@ const changePostState = async(req, res) => {
     try {
         const { id } = req.params;
         const post = await Post.findById(id);
-        if (req.user.role !== 'a' && req.user.id !== post.owner)
+        if (req.user.role !== 'a' || req.user.id !== post.owner)
             return res.status(400).send({ message: "You need to be an admin or post's owner" });
 
         return post

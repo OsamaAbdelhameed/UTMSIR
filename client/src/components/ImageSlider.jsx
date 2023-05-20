@@ -33,6 +33,7 @@ const leftArrowStyles = {
 const sliderStyles = {
 	position: "relative",
 	height: "100%",
+	width: "100%",
 };
 
 const dotsContainerStyles = {
