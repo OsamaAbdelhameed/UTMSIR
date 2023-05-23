@@ -20,10 +20,10 @@ import Mates from "./pages/Mates";
 import { URL, id, token } from "./Consts";
 import axios from "axios";
 import Post from "./pages/Post";
+import PostForm from "./components/PostForm";
 
 function App() {
 	const [user, setUser] = useState({});
-	const [isAdd, setIsAdd] = useState(false);
 
 	const getProfile = async () => {
 		try {
@@ -47,13 +47,12 @@ function App() {
 	return (
 		<div className="container">
 			<Router>
-				<Navbar setIsAdd={setIsAdd} />
+				<Navbar />
 				<Routes>
-					<Route
-						path="/"
-						element={<Main isAdd={isAdd} setIsAdd={setIsAdd} />}
-					/>
+					<Route path="/" element={<Main />} />
 					<Route path="/post/:id" element={<Post />} />
+					<Route path="/post/:postId/edit" element={<PostForm />} />
+					<Route path="/add-post" element={<PostForm />} />
 					<Route path="/mates" element={<Mates />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/about" element={<AboutUs />} />

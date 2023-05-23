@@ -5,7 +5,7 @@ import logo from "../img/logo.png";
 import "../nav.css";
 import { name, cookies, role } from "../Consts";
 
-const Navbar = ({ setIsAdd }) => {
+const Navbar = () => {
 	const navRef = useRef();
 
 	const showNavbar = () => {
@@ -18,21 +18,15 @@ const Navbar = ({ setIsAdd }) => {
 		cookies.remove("email");
 		cookies.remove("role");
 		cookies.remove("img");
-
 		window.location.reload();
+		window.location.href = "/";
 	};
 
 	return (
 		<header>
 			<img alt="UTMSIRLogo" src={logo} height="80vh" />
 			<nav ref={navRef}>
-				<Link
-					to="/"
-					className="a"
-					onClick={() => {
-						setIsAdd(false);
-					}}
-				>
+				<Link to="/" className="a">
 					{role === "s" && "Amazing"} Posts {role !== "s" && "List"}
 				</Link>
 				{role === "a" && (

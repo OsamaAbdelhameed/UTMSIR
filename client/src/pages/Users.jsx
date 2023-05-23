@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import { URL, token } from "../Consts";
+import { URL, roleOps, token } from "../Consts";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
@@ -11,11 +11,6 @@ const Users = () => {
 	const [editObj, setEditObj] = useState({});
 	const [isRole, setIsRole] = useState(false);
 
-	const roleOps = [
-		{ label: "Agent", value: "ag" },
-		{ label: "Owner", value: "o" },
-		{ label: "Student", value: "s" },
-	];
 	const stateOps = [
 		{ label: "Activate", value: "active" },
 		{ label: "Deactivate", value: "deactive" },

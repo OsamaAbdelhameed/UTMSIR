@@ -12,7 +12,7 @@ import "./login.css";
 import { URL, fileApi, roleOps, genderOps, cookies } from "./Consts";
 
 const Auth = () => {
-	const [isSignup, setSignup] = useState(true);
+	const [isSignup, setSignup] = useState(false);
 	const [form, setForm] = useState({ gender: "m", role: "s" });
 	const [image, setImage] = useState("");
 

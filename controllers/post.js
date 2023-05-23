@@ -16,7 +16,8 @@ const updatePost = async(req, res) => {
     const id = req.params.id;
     try {
         const post = await Post.findById(id);
-        if (req.user.id !== post.owner)
+        console.log(post.owner, req.user.id);
+        if (req.user.id != post.owner)
             return res.status(500).send({ message: "You aren't the owner of this post" })
         return post
             .set(req.body)
@@ -45,7 +46,7 @@ const changePostState = async(req, res) => {
     try {
         const { id } = req.params;
         const post = await Post.findById(id);
-        if (req.user.role !== 'a' || req.user.id !== post.owner)
+        if (req.user.role !== 'a' && req.user.id !== post.owner)
             return res.status(400).send({ message: "You need to be an admin or post's owner" });
 
         return post

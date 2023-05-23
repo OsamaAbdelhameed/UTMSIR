@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ImageSlider from "../components/ImageSlider";
-import { id, role } from "../Consts";
+import { URL, id, img, name, role, token } from "../Consts";
+import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Post = () => {
 	const location = useLocation();
@@ -16,14 +19,64 @@ const Post = () => {
 			setReqObj({ ...reqObj, [e.target.name]: e.target.value });
 			console.log(reqObj);
 		} else {
-			setCommentObj({ ...commentObj, [e.target.name]: e.target.value });
+			if (e.target.name === "userName") {
+				let ans = commentObj.userName
+					? { userName: false, title: "" }
+					: { userName: true, title: name };
+				setCommentObj({ ...commentObj, ...ans });
+			} else setCommentObj({ ...commentObj, [e.target.name]: e.target.value });
 			console.log(commentObj);
 		}
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		reqObj.owner = id;
+		let url = "";
+		let form = {};
+		if (isRequest) {
+			url = `${URL}/request`;
+			form = { ...reqObj };
+			form.post = post._id;
+			form.status = "new";
+			form.postOwner = post.owner;
+		} else {
+			url = `${URL}/post/${post._id}/add-comment`;
+			form = { ...commentObj };
+			form.img = img;
+			delete form.userName;
+		}
+
+		form.owner = id;
+		console.log(form);
+		console.log(url);
+		const MySwal = withReactContent(Swal);
+		try {
+			const { data } = await axios.post(
+				url,
+				{
+					...form,
+				},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				}
+			);
+
+			console.log(data);
+			if (!isRequest) post.comments.push(form);
+			console.log(post);
+			MySwal.fire(
+				<p>{isRequest ? "Request" : "Comment"} created successfully</p>
+			);
+		} catch (e) {
+			console.log(e);
+			let msg = e.message;
+			if (e.response.status === 422) {
+				msg = e.response.data.err.details[0].message;
+			}
+			if (e.response.status === 500 || e.response.data.message)
+				msg = e.response.data.message;
+			MySwal.fire(<p>{msg}</p>);
+		}
 	};
 
 	// Close the form when clicking outside of it
@@ -71,20 +124,30 @@ const Post = () => {
 					</>
 				))}
 			</h4>
-			{/* {role === "s" && ( */}
-			<div>
-				<button
-					className="outside-login-btn face-btn"
-					onClick={() => setIsRequest(!isRequest)}
-				>
-					Request
-				</button>
-			</div>
-			{/* )} */}
+			{role === "s" && (
+				<div>
+					<button
+						className="outside-login-btn face-btn"
+						onClick={() => setIsRequest(!isRequest)}
+					>
+						Request
+					</button>
+				</div>
+			)}
+
+			{(role === "ag" || role === "o") && (
+				<div className="btn-container">
+					<Link to={"edit"} state={post}>
+						<button className="inside-login-btn face-btn">Edit</button>
+					</Link>
+					<button className="inside-login-btn google-btn">Delete</button>
+				</div>
+			)}
+
 			<h3>Comments</h3>
 			<h4 className="comment-section">
 				{post.comments.map((c) => (
-					<div class="comment">
+					<div class="comment" key={c}>
 						<div class="comment-author">
 							<img src={c.img} alt="User Avatar" />
 						</div>
@@ -107,7 +170,7 @@ const Post = () => {
 			</h4>
 			<form onSubmit={handleSubmit}>
 				<div>
-					<input type="checkbox" name="userName" />
+					<input type="checkbox" name="userName" onChange={handleChange} />
 					<label htmlFor="title" className="longlabel">
 						Title will be the user name
 					</label>
@@ -121,6 +184,7 @@ const Post = () => {
 						name="title"
 						placeholder="Proper post title for the accommodation"
 						onChange={handleChange}
+						value={commentObj.title}
 						required
 					/>
 				</div>
