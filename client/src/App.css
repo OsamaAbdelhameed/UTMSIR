@@ -141,6 +141,7 @@ a {
     text-decoration: none;
 }
 
+.l:hover,
 a:hover {
     color: var(--golden-color);
 }

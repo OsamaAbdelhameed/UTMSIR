@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ImageSlider from "../components/ImageSlider";
 import { URL, id, img, name, role, token } from "../Consts";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import RequestForm from "../components/RequestForm";
 
 const Post = () => {
 	const location = useLocation();
@@ -12,7 +13,6 @@ const Post = () => {
 	const [isRequest, setIsRequest] = useState(false);
 	const [reqObj, setReqObj] = useState({});
 	const [commentObj, setCommentObj] = useState({});
-	const requestRef = useRef(null);
 
 	const handleChange = (e) => {
 		if (isRequest) {
@@ -78,24 +78,6 @@ const Post = () => {
 			MySwal.fire(<p>{msg}</p>);
 		}
 	};
-
-	// Close the form when clicking outside of it
-	const handleClickOutside = (event) => {
-		if (requestRef.current && !requestRef.current.contains(event.target)) {
-			setIsRequest(false);
-		}
-	};
-
-	useEffect(() => {
-		if (isRequest) {
-			document.addEventListener("mousedown", handleClickOutside);
-		} else {
-			document.removeEventListener("mousedown", handleClickOutside);
-		}
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, [isRequest]);
 
 	const containerStyles = {
 		width: "85vw",
@@ -210,56 +192,13 @@ const Post = () => {
 				</div>
 				<br />
 			</form>
-			<div
-				className={`req-form-container ${isRequest ? "open" : ""}`}
-				ref={requestRef}
-			>
-				<form onSubmit={handleSubmit}>
-					<h2>Request {post.title}</h2>
-					<label htmlFor="desc" className="longlabel">
-						Description
-					</label>
-					<textarea
-						type="text"
-						name="desc"
-						style={{ width: "95%" }}
-						placeholder="Proper description for the request"
-						onChange={handleChange}
-						required
-					/>
-					<label htmlFor="price" className="longlabel">
-						Price
-					</label>
-					<input
-						type="number"
-						name="price"
-						style={{ width: "95%" }}
-						placeholder="Offered rental price"
-						onChange={handleChange}
-						required
-					/>
-					<label htmlFor="price" className="longlabel">
-						Arrival Date
-					</label>
-					<input
-						type="date"
-						name="arrivalDate"
-						style={{ width: "95%" }}
-						// placeholder="Offered rental price"
-						onChange={handleChange}
-						required
-					/>
-					<div className="btn-container">
-						<button type="submit" className="inside-login-btn auth-btn">
-							Make Request
-						</button>
-						<button type="reset" className="inside-login-btn google-btn">
-							Reset
-						</button>
-					</div>
-					<br />
-				</form>
-			</div>
+			<RequestForm
+				isRequest={isRequest}
+				setIsRequest={setIsRequest}
+				title={post.title}
+				handleChange={handleChange}
+				handleSubmit={handleSubmit}
+			/>
 		</div>
 	);
 };
