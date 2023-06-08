@@ -70,17 +70,17 @@ const changeRequestState = async(req, res) => {
 }
 
 const deleteRequest = async(req, res) => {
-    if (req.user.role === 's')
-        return res.status(400).send({ message: "Students aren't allowed to delete other users' requests" });
-
     try {
         const { id } = req.params;
         const request = await Request.findById(id);
+
         if (req.user.role !== 'a' && req.user.id !== request.owner)
             return res.status(400).send({ message: "You need to be an admin or request's owner" });
+        if (req.user.role === 's' && req.user.id !== request.owner)
+            return res.status(400).send({ message: "Users aren't allowed to delete other users' requests" });
 
-        return post.deleteOne({ _id: id })
-            .then((post) => res.status(200).json({ post }))
+        return request.deleteOne({ _id: id })
+            .then((r) => res.status(200).json({ r }))
             .catch((err) => res.status(500).json({ err }));
     } catch (err) {
         res.status(500).send({ message: err.message });

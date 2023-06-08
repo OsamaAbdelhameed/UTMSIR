@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ImageSlider from "../components/ImageSlider";
 import { URL, id, img, name, role, token } from "../Consts";
@@ -6,10 +6,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import RequestForm from "../components/RequestForm";
+import { PostsContext } from "../PostsProvider";
 
 const Post = () => {
 	const location = useLocation();
+	console.log(location);
 	const post = location.state;
+	const { posts, setPosts } = useContext(PostsContext);
 	const [isRequest, setIsRequest] = useState(false);
 	const [reqObj, setReqObj] = useState({});
 	const [commentObj, setCommentObj] = useState({});
@@ -62,7 +65,10 @@ const Post = () => {
 			);
 
 			console.log(data);
-			if (!isRequest) post.comments.push(form);
+			if (!isRequest) {
+				post.comments.push(form);
+				setPosts([...posts.filter((p) => p._id !== post._id), post]);
+			}
 			console.log(post);
 			MySwal.fire(
 				<p>{isRequest ? "Request" : "Comment"} created successfully</p>
@@ -94,6 +100,7 @@ const Post = () => {
 			</div>
 			<h3 style={{ marginTop: "30px" }}>{post.location}</h3>
 			<h3>MYR {post.price}/Month</h3>
+			<h3>Bed Rooms: {post.bedsNum}</h3>
 			<h3>
 				{post.area}
 				<sub>sq . ft</sub>

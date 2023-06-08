@@ -83,6 +83,7 @@ const Schemas = {
         options: Joi.array().items(Joi.string()),
         owner: Joi.string().required(),
         feedback: Joi.string(),
+        state: Joi.string(),
     }),
     feedback: Joi.object({
         opinion: Joi.string().required(),

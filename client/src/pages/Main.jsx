@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import { URL, role, token } from "../Consts";
 import axios from "axios";
@@ -6,13 +6,16 @@ import ImageSlider from "../components/ImageSlider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { PostsContext } from "../PostsProvider";
 
 const Main = () => {
-	const [posts, setPosts] = useState([]);
+	// const [posts, setPosts] = useState([]);
+	const { posts, setPosts } = useContext(PostsContext);
 	const [isUpdate, setIsUpdate] = useState({ num: 0, update: false });
 	const [state, setState] = useState("");
 	const stateOps = [
 		{ label: "Active", value: "active" },
+		// { label: "Deactivate", value: "d" },
 		{ label: "Reported", value: "r" },
 		{ label: "Require more information", value: "n" },
 	];
@@ -25,6 +28,8 @@ const Main = () => {
 			});
 			console.log(data);
 			setPosts(data.posts);
+			if (role === "s")
+				setPosts([...data.posts.filter((p) => p.state === "active")]);
 			console.log(posts);
 		} catch (error) {
 			console.error(error);
@@ -107,6 +112,8 @@ const Main = () => {
 								? stateOps[1].label
 								: post.state === stateOps[2].value
 								? stateOps[2].label
+								: post.state === "d"
+								? "Deactivated"
 								: "New"}
 						</h3>
 					)}
@@ -115,6 +122,16 @@ const Main = () => {
 							<Link to={"post/" + post._id + "/edit"} state={post}>
 								<button className="inside-login-btn face-btn">Edit</button>
 							</Link>
+							<button
+								className="inside-login-btn auth-btn"
+								onClick={() =>
+									post.state === "d"
+										? changePostState(post._id, "active")
+										: changePostState(post._id, "d")
+								}
+							>
+								{post.state === "d" ? "Activate" : "Deactivate"}
+							</button>
 							<button className="inside-login-btn google-btn">Delete</button>
 						</div>
 					)}
@@ -151,7 +168,9 @@ const Main = () => {
 							</div>
 						) : (
 							<div className="btn-container">
-								{(!post.state || post.state === "new") && (
+								{(!post.state ||
+									post.state === "new" ||
+									post.state === "u") && (
 									<button
 										className="inside-login-btn auth-btn"
 										onClick={() => changePostState(post._id, "active")}

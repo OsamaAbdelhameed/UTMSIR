@@ -220,7 +220,7 @@ const PostForm = () => {
 						value={form.bedsNum}
 						min="0"
 						max="6"
-						placeholder="Number of bedrooms in the accommodation"
+						placeholder="Number of bedrooms in the accommodation (No more than 6)"
 						onChange={handleChange}
 						required
 					/>

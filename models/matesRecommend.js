@@ -9,7 +9,13 @@ const matesSchema = new mongoose.Schema({
     sameReligion: { type: Boolean, required: true },
     vaping: { type: Boolean, required: true },
     smoking: { type: Boolean, required: true },
-    options: [String],
+    options: [{
+        student: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        similarity: { type: Boolean, required: true }
+    }],
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -17,7 +23,8 @@ const matesSchema = new mongoose.Schema({
     feedback: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feedback'
-    }
+    },
+    state: String
 })
 
 const Mates = mongoose.model('Mates', matesSchema)

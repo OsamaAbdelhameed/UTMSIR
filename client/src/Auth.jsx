@@ -50,13 +50,17 @@ const Auth = () => {
 			}
 		} catch (e) {
 			console.log(e);
-			// console.log(e.response);
+			console.log(e.message);
 			let msg = e.message;
-			if (e.response.status === 422) {
-				msg = e.response.data.err.details[0].message;
+			if (e.response) {
+				if (e.response.status === 422) {
+					msg = e.response.data.err.details[0].message;
+				}
+				if (e.response.status === 500 || e.response.data.message) {
+					msg = e.response.data.message;
+				}
 			}
-			if (e.response.status === 500 || e.response.data.message)
-				msg = e.response.data.message;
+			console.log(msg);
 			MySwal.fire(<p>{msg}</p>);
 		}
 	};

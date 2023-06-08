@@ -7,6 +7,7 @@ import axios from "axios";
 
 const Profile = ({ user, setUser }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	const [genChange, setGenChange] = useState(false);
 	const [editObj, setEditObj] = useState({});
 
 	const handleChange = (e) => {
@@ -17,8 +18,7 @@ const Profile = ({ user, setUser }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(editObj);
-		if (editObj.genchar)
-			editObj.gender = editObj.genchar === "m" ? false : true;
+		if (genChange) editObj.gender = editObj.genchar === "m" ? false : true;
 
 		const MySwal = withReactContent(Swal);
 		try {
@@ -52,7 +52,7 @@ const Profile = ({ user, setUser }) => {
 			/>
 			<h3>Email: {user.email}</h3>
 			{isEdit ? (
-				<>
+				<form onSubmit={handleSubmit}>
 					<div className="input-field">
 						<label htmlFor="name" className="longlabel">
 							Name
@@ -95,26 +95,57 @@ const Profile = ({ user, setUser }) => {
 							options={genderOps}
 							name="genchar"
 							onChange={(option) => {
+								setGenChange(true);
 								setEditObj({ ...editObj, gender: option.value });
 								console.log(editObj);
 							}}
 						/>
 					</div>
-				</>
+					{user.role === "s" && (
+						<div className="input-field">
+							<label htmlFor="study" className="longlabel">
+								Field
+							</label>
+							<input
+								type="text"
+								name="field"
+								placeholder="Specialization taken in UTM"
+								onChange={handleChange}
+								required
+							/>
+						</div>
+					)}
+					{(user.role === "ag" || user.role === "o") && (
+						<div className="input-field">
+							<label htmlFor="houses">Number of Properties</label>
+							<input
+								type="number"
+								name="numOfHouses"
+								min="0"
+								max={user.role === "o" ? "3" : undefined}
+								placeholder={
+									user.role === "o"
+										? "Number of houses available for rent (should be 3 or lower for owners)"
+										: "Number of houses available for rent"
+								}
+								onChange={handleChange}
+								required
+							/>
+						</div>
+					)}
+					<button className="inside-login-btn auth-btn">Apply</button>
+				</form>
 			) : (
 				<>
 					<h3>Full Name: {user.name}</h3>
 					<h3>Age: {user.age}</h3>
 					<h3>Phone: {user.phone}</h3>
 					<h3>Gender: {user.gender ? "Male" : "Female"}</h3>
+					{user.role === "s" && <h3>Study Field: {user.field}</h3>}
+					{user.role !== "a" && user.role !== "s" && (
+						<h3>Number of Houses: {user.numOfHouses}</h3>
+					)}
 				</>
-			)}
-			{user.role === "s" ? (
-				<h3>Study Field: {user.field}</h3>
-			) : user.role !== "a" ? (
-				<h3>Number of Houses: {user.numOfHouses}</h3>
-			) : (
-				""
 			)}
 			<h3>
 				Role:{" "}
@@ -127,11 +158,6 @@ const Profile = ({ user, setUser }) => {
 					: "Owner"}
 			</h3>
 			<h3>State: {user.state.toUpperCase()}</h3>
-			{isEdit && (
-				<form onSubmit={handleSubmit}>
-					<button className="inside-login-btn auth-btn">Apply</button>
-				</form>
-			)}
 			<div>
 				<button
 					className={"inside-login-btn " + (isEdit ? "google-btn" : "face-btn")}

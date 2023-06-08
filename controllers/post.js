@@ -3,6 +3,12 @@ const { Comment, Post } = require("../models/post");
 const createPost = async(req, res) => {
     if (req.user.role === 'a' || req.user.role === 's')
         return res.status(400).send({ message: 'Agents and owners only are allowed to create posts' });
+    if (req.user.role === 'o') {
+        const numPosts = await Post.find({ owner: req.user.id })
+            .then((posts) => posts.length)
+        console.log(numPosts)
+        if (numPosts >= 3) return res.status(500).send({ message: "Sorry, Owners can't have more than 3 posts" })
+    }
 
     const post = new Post({...req.body });
 
@@ -46,7 +52,7 @@ const changePostState = async(req, res) => {
     try {
         const { id } = req.params;
         const post = await Post.findById(id);
-        if (req.user.role !== 'a' && req.user.id !== post.owner)
+        if (req.user.role !== 'a' && req.user.id != post.owner)
             return res.status(400).send({ message: "You need to be an admin or post's owner" });
 
         return post
