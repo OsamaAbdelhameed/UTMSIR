@@ -5,6 +5,7 @@ const matesSchema = new mongoose.Schema({
     religion: { type: String, required: true },
     lang: { type: [String], required: true },
     expectedBudget: { type: Number, required: true },
+    myBudget: { type: Number, required: true },
     field: { type: Boolean, required: true },
     sameReligion: { type: Boolean, required: true },
     vaping: { type: Boolean, required: true },
@@ -14,7 +15,8 @@ const matesSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        similarity: { type: Boolean, required: true }
+        similarity: { type: Number, required: true },
+        attributes: {}
     }],
     owner: {
         type: mongoose.Schema.Types.ObjectId,

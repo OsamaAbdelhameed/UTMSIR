@@ -5,10 +5,13 @@ const { Room } = require('../models/roomRecommend');
 const { User } = require('../models/user');
 
 const getAllUsers = async(req, res) => {
-    if (req.user.role !== 'a')
+    const filter = {}
+    if (req.user.role === 's')
+        filter.role = 's'
+    else if (req.user.role !== 'a')
         return res.status(400).send({ message: 'Admins only are allowed to do get all users' });
 
-    return await User.find()
+    return await User.find(filter)
         .then((users) => res.status(200).json({ users }))
         .catch((err) => res.status(500).json({ err }));
 }

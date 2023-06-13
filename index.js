@@ -69,7 +69,7 @@ const StartServer = () => {
     router.use('/admin', adminRoutes);
     router.use('/post', postRoutes);
     router.use('/request', requestRoutes);
-    // router.use('/recommend', recommendRoutes);
+    router.use('/recommend', recommendRoutes);
 
     /** Healthcheck */
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

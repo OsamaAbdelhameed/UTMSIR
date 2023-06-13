@@ -42,9 +42,9 @@ const Navbar = () => {
 				<Link to="/requests" className="a">
 					Requests List
 				</Link>
-				{role === "s" && role === "a" && (
-					<Link to="/recommend" className="a">
-						Recommendations {role !== "s" && "List"}
+				{(role === "s" || role === "a") && (
+					<Link to="/recommends" className="a">
+						Recommendations
 					</Link>
 				)}
 				<Link to="/about" className="a">

@@ -1,10 +1,10 @@
-import { Room } from "../models/roomRecommend";
+const { Room } = require("../models/roomRecommend");
 
 const createRoom = async(req, res) => {
     if (req.user.role !== 's')
         return res.status(400).send({ message: 'Students only are allowed to create room recommendations' });
 
-    const room = new Room({...req.body });
+    const room = new Room({...req.body, owner: req.user.id });
 
     return await room
         .save()
@@ -37,7 +37,7 @@ const getAllRooms = async(req, res, next) => {
             if (req.user.role === 's')
                 rooms = [...rooms.filter(room => room.owner._id == req.user.id)]
             console.log(rooms)
-            res.status(200).json({ rooms })
+            return rooms;
         })
         .catch((err) => {
             console.log(err);

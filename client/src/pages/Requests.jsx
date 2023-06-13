@@ -116,7 +116,7 @@ const Requests = () => {
 			<table>
 				<thead>
 					<th>Num</th>
-					<th>Post Title</th>
+					<th className="huge">Post Title</th>
 					<th>Student Name</th>
 					<th>Post Owner</th>
 					<th>Post Price</th>
@@ -132,7 +132,7 @@ const Requests = () => {
 								<td>
 									<span>{index + 1}</span>
 								</td>
-								<td>
+								<td className="huge">
 									<Link to={"/post/" + req.post._id} state={req.post}>
 										<span className="l">{req.post.title}</span>
 									</Link>

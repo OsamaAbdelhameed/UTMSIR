@@ -29,7 +29,7 @@ const Mates = () => {
 					<th>Num</th>
 					<th>Avatar</th>
 					<th>Name</th>
-					<th>Email</th>
+					<th className="huge">Email</th>
 					<th>Gender</th>
 					<th>Phone</th>
 				</thead>
@@ -53,7 +53,7 @@ const Mates = () => {
 								<td>
 									<span>{user.name}</span>
 								</td>
-								<td>
+								<td className="huge">
 									<span>{user.email}</span>
 								</td>
 								<td>

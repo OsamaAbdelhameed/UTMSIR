@@ -75,7 +75,7 @@ const Users = () => {
 					<th>Num</th>
 					<th>Avatar</th>
 					<th>Name</th>
-					<th>Email</th>
+					<th className="huge">Email</th>
 					<th>Gender</th>
 					<th>Phone</th>
 					<th>Role</th>
@@ -101,7 +101,7 @@ const Users = () => {
 								<td>
 									<span>{user.name}</span>
 								</td>
-								<td>
+								<td className="huge">
 									<span>{user.email}</span>
 								</td>
 								<td>

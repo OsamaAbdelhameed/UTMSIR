@@ -6,7 +6,16 @@ const validateSchema = (schema) => {
     return async(req, res, next) => {
         try {
             delete req.body._id;
+            let isMates = 2;
+            if (req.body.isMates) {
+                isMates = req.body.isMates;
+                delete req.body.isMates;
+            }
             await schema.validateAsync(req.body);
+
+            if (isMates !== 2) {
+                req.body.isMates = isMates;
+            }
             next();
         } catch (err) {
             Logging.err(err);
@@ -61,27 +70,26 @@ const Schemas = {
         postOwner: Joi.string().required(),
     }),
     recommendRoom: Joi.object({
-        name: Joi.string().required(),
-        area: Joi.number().required(),
+        type: Joi.string().required(),
         budget: Joi.number().required(),
         hasTransport: Joi.boolean().required(),
         isInsideUTM: Joi.boolean().required(),
         matesInsideRoom: Joi.boolean().required(),
-        privateBath: Joi.boolean().required(),
-        type: Joi.string(),
-        owner: Joi.string().required(),
+        name: Joi.string(),
+        owner: Joi.string(),
         feedback: Joi.string(),
     }),
     recommendMates: Joi.object({
         religion: Joi.string().required(),
         lang: Joi.array().items(Joi.string()).required(),
         expectedBudget: Joi.number().required(),
+        myBudget: Joi.number().required(),
         field: Joi.boolean().required(),
         sameReligion: Joi.boolean().required(),
         smoking: Joi.boolean().required(),
         vaping: Joi.boolean().required(),
         options: Joi.array().items(Joi.string()),
-        owner: Joi.string().required(),
+        owner: Joi.string(),
         feedback: Joi.string(),
         state: Joi.string(),
     }),

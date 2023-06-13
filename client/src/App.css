@@ -208,7 +208,8 @@ table {
 
 th {
     text-align: left;
-    padding: 12px 24px;
+    width: 10vw;
+    /* padding: 12px 24px; */
     background: transparent;
     box-shadow: none;
     color: var(--golden-color);
@@ -228,12 +229,18 @@ thead {
     color: inherit;
     display: table-row;
     vertical-align: middle;
+    height: 8vh;
     outline: 0px;
 }
 
+.huge {
+    width: 18vw;
+}
+
 td {
+    width: 10vw;
     text-align: left;
-    padding: 12px 24px;
+    /* padding: 12px 24px; */
     background: transparent;
     box-shadow: none;
     border-bottom: 0.05rem solid var(--primary-color);

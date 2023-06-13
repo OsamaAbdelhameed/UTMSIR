@@ -9,7 +9,6 @@ import withReactContent from "sweetalert2-react-content";
 import { PostsContext } from "../PostsProvider";
 
 const Main = () => {
-	// const [posts, setPosts] = useState([]);
 	const { posts, setPosts } = useContext(PostsContext);
 	const [isUpdate, setIsUpdate] = useState({ num: 0, update: false });
 	const [state, setState] = useState("");
@@ -73,6 +72,7 @@ const Main = () => {
 
 	useEffect(() => {
 		getPosts();
+		console.log(token);
 	}, []);
 
 	return (

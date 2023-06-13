@@ -1,10 +1,11 @@
-import { Mates } from "../models/matesRecommend";
+const { Mates } = require("../models/matesRecommend");
 
 const createMates = async(req, res) => {
     if (req.user.role !== 's')
         return res.status(400).send({ message: 'Students only are allowed to create Mates recommendations' });
 
-    let newMate = {...req.body };
+    let newMate = {...req.body, owner: req.user.id };
+    console.log(newMate)
     let allMates = []
 
     await Mates.updateMany({ owner: newMate.owner }, { state: 'old' })
@@ -16,21 +17,24 @@ const createMates = async(req, res) => {
                     return;
                 let attributes = {}
                 let similarity = 0;
-                if (sameReligion)
+                if (newMate.sameReligion)
                     attributes.religion = mate.religion;
-                if (field)
+                if (newMate.field)
                     attributes.field = mate.owner.field;
-                attributes = {...attributes, vaping: mate.vaping, smoking: mate.smoking, budget: mate.expectedBudget, lang: mate.lang }
-                const score = (attributes.religion == newMate.religion) + (attributes.field == newMate.field) + (attributes.vaping == newMate.vaping) + (attributes.smoking == newMate.smoking) + (attributes.budget >= newMate.expectedBudget) + (attributes.lang.filter(value => newMate.lang.includes(value)).length)
+                console.log('done correctly')
+                attributes = {...attributes, vaping: mate.vaping, smoking: mate.smoking, budget: mate.expectedBudget, lang: mate.lang, myBudget: mate.myBudget }
+                const score = (attributes.religion == newMate.religion) + (attributes.field == newMate.field) + (attributes.vaping == newMate.vaping) + (attributes.smoking == newMate.smoking) + (attributes.budget <= newMate.myBudget) + (attributes.myBudget >= newMate.expectedBudget) + (attributes.lang.filter(value => newMate.lang.includes(value)).length)
                 console.log(score)
                 similarity = score / Object.keys(attributes).length;
-                allMates.push({ student: mate.owner, similarity: mate.similarity })
+                console.log(similarity)
+                allMates.push({ student: mate.owner._id, similarity, attributes })
                 allMates.sort((a, b) => a.similarity + b.similarity);
+                console.log(allMates)
             })
         })
-        .catch((err) => res.status(500).send({ message: err }));
+        .catch((err) => res.status(500).send({ message: "error in existing mates." }));
 
-    const mate = new Mates({...newMate, options: allMates.slice(0, 3) });
+    const mate = new Mates({...newMate, options: allMates.length > 3 ? allMates.slice(0, 3) : allMates });
 
     return await mate
         .save()
@@ -54,16 +58,16 @@ const updateMates = async(req, res) => {
     }
 }
 
-const getAllMatess = async(req, res) => {
+const getAllMates = async(req, res) => {
     return await Mates.find()
-        .populate('owner', 'name img')
+        .populate('owner', '')
         .populate('feedback', '')
         .then((m) => {
             console.log(m)
             if (req.user.role === 's')
                 m = [...m.filter(m => m.owner._id == req.user.id)]
             console.log(m)
-            res.status(200).json({ m })
+            res.status(200).json({ rooms: req.rooms, mates: m })
         })
         .catch((err) => {
             console.log(err);
@@ -89,4 +93,4 @@ const deleteMates = async(req, res) => {
     }
 }
 
-module.exports = { createMates, updateMates, getAllMatess, deleteMates }
+module.exports = { createMates, updateMates, getAllMates, deleteMates }
