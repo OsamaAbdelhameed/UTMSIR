@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getAllUsers, changeUserState, getAllComments, getAllRooms, getAllMates, getAllFeedbacks } = require('../controllers/admin');
+const { getAllUsers, changeUserState, getAllComments, getAllRooms, getAllMates, getAllFeedbacks, getCount } = require('../controllers/admin');
 const { getAllPosts, changePostState } = require('../controllers/post');
 const { getAllRequests } = require('../controllers/request');
 const { authenticateToken } = require('../middleware/authrizate');
@@ -16,5 +16,6 @@ router.get('/all-requests', authenticateToken, getAllRequests)
 router.get('/all-rooms', authenticateToken, getAllRooms)
 router.get('/all-mates', authenticateToken, getAllMates)
 router.get('/all-feeds', authenticateToken, getAllFeedbacks)
+router.get('/all-count', authenticateToken, getCount)
 
 module.exports = router;

@@ -47,6 +47,11 @@ const Navbar = () => {
 						Recommendations
 					</Link>
 				)}
+				{role === "a" && (
+					<Link to="/dashboard" className="a">
+						Analytics
+					</Link>
+				)}
 				<Link to="/about" className="a">
 					About Us
 				</Link>

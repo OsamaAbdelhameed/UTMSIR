@@ -1,100 +1,104 @@
-import React, { useEffect, useState } from "react";
-import { URL, role, token } from "../Consts";
+import React, { useEffect, useRef, useState } from "react";
+import { URL, id, results, role, token } from "../Consts";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FaCheck, FaTimes } from "react-icons/fa";
-
-const MatesTable = ({ mates }) => {
-	const [isOps, setIsOps] = useState(false);
-	const [ops, setOps] = useState([]);
-
-	return (
-		<table>
-			<thead>
-				<th>Num</th>
-				{role === "a" && <th>Avatar</th> && <th>Student Name</th>}
-				<th>My Budget</th>
-				<th>Expected Budget</th>
-				<th>Languages</th>
-				<th>Study Field</th>
-				<th>Religion</th>
-				<th>Smoking</th>
-				<th>Vaping</th>
-				<th>Options</th>
-			</thead>
-			{mates && mates.length !== 0 ? (
-				<tbody>
-					{mates.map((mate, index) => (
-						<tr key={index}>
-							<td>
-								<span>{index + 1}</span>
-							</td>
-							{role === "a" && (
-									<td>
-										<img
-											src={mate.owner.img}
-											alt={mate.owner.name}
-											width={50}
-											height={50}
-											style={{ borderRadius: "50%" }}
-										/>
-									</td>
-								) && (
-									<td>
-										<span>{mate.owner.name}</span>
-									</td>
-								)}
-							<td>
-								<span>{mate.myBudget}</span>
-							</td>
-							<td>
-								<span>{mate.expectedBudget}</span>
-							</td>
-							<td>
-								<span>
-									{mate.lang &&
-										mate.lang.map((l) => <p key={l}>{l.toUpperCase()}</p>)}
-								</span>
-							</td>
-							<td>
-								<span>{mate.field ? mate.owner.field : "Not Included"}</span>
-							</td>
-							<td>
-								<span>
-									{mate.sameReligion ? mate.religion : "Not Included"}
-								</span>
-							</td>
-							<td>{mate.smoking ? <FaCheck /> : <FaTimes />}</td>
-							<td>{mate.vaping ? <FaCheck /> : <FaTimes />}</td>
-							<td>
-								<div className="btn-container">
-									<button
-										className="inside-login-btn auth-btn"
-										onClick={() => {
-											setOps(mate.options);
-											setIsOps(true);
-										}}
-									>
-										Show Mates
-									</button>
-								</div>
-							</td>
-						</tr>
-					))}
-				</tbody>
-			) : (
-				<tbody>
-					<h3 className="empty-table">No Requests Found</h3>
-				</tbody>
-			)}
-		</table>
-	);
-};
+import { MatesTable } from "../components/MatesTable";
+import { RoomsTable } from "../components/RoomsTable";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const RecommendList = () => {
-	const [isMates, setIsMates] = useState(true);
+	const [isMates, setIsMates] = useState(false);
 	const [rooms, setRooms] = useState([]);
 	const [mates, setMates] = useState([]);
+
+	const [isOps, setIsOps] = useState(false);
+	const [isRoom, setIsRoom] = useState(false);
+	const [ops, setOps] = useState([]);
+	const [isFeedback, setFeedback] = useState(false);
+	const [obj, setObj] = useState({});
+
+	const requestRef = useRef(null);
+
+	// Close the form when clicking outside of it
+	const handleClickOutside = (event) => {
+		if (requestRef.current && !requestRef.current.contains(event.target)) {
+			setIsOps(false);
+			setIsRoom(false);
+			setFeedback(false);
+		}
+	};
+
+	useEffect(() => {
+		if (isOps || isRoom || isFeedback) {
+			document.addEventListener("mousedown", handleClickOutside);
+		} else {
+			document.removeEventListener("mousedown", handleClickOutside);
+		}
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [isOps, isRoom, isFeedback]);
+
+	const handleChange = (e) => {
+		setObj({ ...obj, [e.target.name]: e.target.value });
+		console.log(obj);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(obj);
+		// obj.owner = id;
+
+		const MySwal = withReactContent(Swal);
+		console.log(`${URL}/recommend/${isFeedback}/add-feedback`);
+		try {
+			const { data } = await axios.post(
+				`${URL}/recommend/${isFeedback}/add-feedback`,
+				{
+					...obj,
+					isMates,
+				},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				}
+			);
+
+			console.log(data);
+
+			let updatedRecommends = isMates
+				? mates.map((req) => {
+						if (req._id === isFeedback)
+							req = {
+								...req,
+								feedback: data.feed._id,
+							};
+						return req;
+				  })
+				: rooms.map((req) => {
+						if (req._id === isFeedback)
+							req = {
+								...req,
+								feedback: data.feed._id,
+							};
+						return req;
+				  });
+			if (isMates) setMates([...updatedRecommends]);
+			else setRooms([...updatedRecommends]);
+			console.log(mates, rooms);
+
+			MySwal.fire(<p>Feedback created successfully</p>);
+		} catch (e) {
+			console.log(e);
+			let msg = e.message;
+			if (e.response.status === 422) {
+				msg = e.response.data.err.details[0].message;
+			}
+			if (e.response.status === 500 || e.response.data.message)
+				msg = e.response.data.message;
+			MySwal.fire(<p>{msg}</p>);
+		}
+	};
 
 	const getRecommends = async () => {
 		try {
@@ -115,7 +119,7 @@ const RecommendList = () => {
 	}, []);
 
 	return (
-		<div className={`back main post-parent ${role === "s" && "mar"}`}>
+		<div className={`form-container back main ${role === "s" && "mar"}`}>
 			{role === "s" && (
 				<div
 					className="btn-container"
@@ -129,14 +133,132 @@ const RecommendList = () => {
 					</button>
 				</div>
 			)}
-			<button
-				className="inside-login-btn face-btn"
-				style={{ marginTop: "50px" }}
-				onClick={() => setIsMates(!isMates)}
+			<div className="btn-container">
+				<button
+					className="inside-login-btn face-btn"
+					style={{ marginTop: "50px" }}
+					onClick={() => setIsMates(!isMates)}
+				>
+					{isMates ? "Rooms List" : "Mates List"}
+				</button>
+			</div>
+			{isMates ? (
+				<MatesTable
+					mates={mates}
+					setOps={setOps}
+					setIsOps={setIsOps}
+					setFeedback={setFeedback}
+				/>
+			) : (
+				<RoomsTable
+					rooms={rooms}
+					setFeedback={setFeedback}
+					setRoom={setIsRoom}
+				/>
+			)}
+			<div
+				className={`req-form-container ${
+					isFeedback || isOps || isRoom ? "open" : ""
+				}`}
+				ref={requestRef}
 			>
-				{isMates ? "Mates List" : "Rooms List"}
-			</button>
-			{isMates ? <MatesTable mates={mates} /> : "Rooms"}
+				{isFeedback ? (
+					<form
+						onSubmit={handleSubmit}
+						style={
+							isFeedback && {
+								position: "absolute",
+								top: "-350px",
+							}
+						}
+					>
+						<h2>Review Recommendation</h2>
+						<label htmlFor="price" className="longlabel">
+							Efficient
+						</label>
+						<input
+							type="number"
+							name="efficient"
+							style={{ width: "95%" }}
+							placeholder="Rate from 0 to 5"
+							onChange={handleChange}
+							min="0"
+							max="5"
+							required
+						/>
+						<label htmlFor="price" className="longlabel">
+							Logical
+						</label>
+						<input
+							type="number"
+							name="logical"
+							style={{ width: "95%" }}
+							placeholder="Rate from 0 to 5"
+							onChange={handleChange}
+							min="0"
+							max="5"
+							required
+						/>
+						<label htmlFor="price" className="longlabel">
+							Useful
+						</label>
+						<input
+							type="number"
+							name="useful"
+							style={{ width: "95%" }}
+							placeholder="Rate from 0 to 5"
+							onChange={handleChange}
+							min="0"
+							max="5"
+							required
+						/>
+						<label htmlFor="desc" className="longlabel">
+							Opinion
+						</label>
+						<textarea
+							type="text"
+							name="opinion"
+							style={{ width: "95%" }}
+							placeholder="Proper description for your experience"
+							onChange={handleChange}
+							required
+						/>
+						<div className="btn-container">
+							<button type="submit" className="inside-login-btn auth-btn">
+								Send Review
+							</button>
+							<button type="reset" className="inside-login-btn google-btn">
+								Reset
+							</button>
+						</div>
+						<br />
+					</form>
+				) : (
+					<form
+						style={
+							isRoom || isOps
+								? {
+										position: "absolute",
+										top: "-250px",
+										width: "50%",
+								  }
+								: {}
+						}
+					>
+						{isRoom ? (
+							<h2>{results.filter((r) => r.value === isRoom)[0].desc}</h2>
+						) : (
+							<h2>
+								{ops.map((op) => (
+									<div>
+										{op.name} {op.similarity}
+									</div>
+								))}
+							</h2>
+						)}
+					</form>
+				)}
+			</div>
 		</div>
 	);
 };

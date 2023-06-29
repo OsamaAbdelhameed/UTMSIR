@@ -15,6 +15,7 @@ const matesSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
+        name: { type: String },
         similarity: { type: Number, required: true },
         attributes: {}
     }],

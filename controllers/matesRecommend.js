@@ -13,7 +13,7 @@ const createMates = async(req, res) => {
     await Mates.find()
         .populate('owner', '').then(all => {
             all.forEach(mate => {
-                if (mate.owner === newMate.owner)
+                if (mate.owner === newMate.owner || mate.state === 'old')
                     return;
                 let attributes = {}
                 let similarity = 0;
@@ -27,14 +27,14 @@ const createMates = async(req, res) => {
                 console.log(score)
                 similarity = score / Object.keys(attributes).length;
                 console.log(similarity)
-                allMates.push({ student: mate.owner._id, similarity, attributes })
+                allMates.push({ student: mate.owner._id, name: mate.owner.name, similarity, attributes })
                 allMates.sort((a, b) => a.similarity + b.similarity);
                 console.log(allMates)
             })
         })
         .catch((err) => res.status(500).send({ message: "error in existing mates." }));
 
-    const mate = new Mates({...newMate, options: allMates.length > 3 ? allMates.slice(0, 3) : allMates });
+    const mate = new Mates({...newMate, options: allMates.length > 3 ? allMates.slice(0, 3) : allMates, owner: req.user.id });
 
     return await mate
         .save()

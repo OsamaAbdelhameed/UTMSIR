@@ -22,20 +22,24 @@ const addFeedback = async(req, res) => {
     const id = req.params.id;
     if (req.user.role !== 's')
         return res.status(400).send({ message: 'Students only are allowed to create feedback' });
-
     const isMates = req.body.isMates;
+    console.log(isMates)
+
     const recommend = isMates ? await Mates.findById(id) : await Room.findById(id);
+    console.log(recommend)
+    console.log(req.user.id)
+        // if (req.user.id != recommend.owner)
+        // return res.status(500).send({ message: "You aren't the owner of this recommendation" })
     delete req.body.isMates;
+
     const feedback = new Feedback({...req.body });
 
     return await feedback
         .save()
-        .then((feedback) => (req.user.id != recommend.owner) ?
-            res.status(500).send({ message: "You aren't the owner of this recommendations" }) :
-            recommend
-            .set({ feedback: feedback._id })
+        .then((feed) => recommend
+            .set({ feedback: feed._id })
             .save()
-            .then((recommend) => res.status(200).send({ feedback, recommend, message: 'Feedback created successfully' }))
+            .then((reco) => res.status(200).send({ feed, reco, message: 'Feedback created successfully' }))
             .catch((err) => res.status(500).json({ err }))
         )
         .catch((err) => res.status(500).send({ message: err.message }));
