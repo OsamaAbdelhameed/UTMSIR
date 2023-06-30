@@ -1,8 +1,8 @@
 import React from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { role } from "../Consts";
+import { role, results } from "../Consts";
 
-export const RoomsTable = ({ rooms, setRoom, setFeedback }) => {
+export const RoomsTable = ({ rooms, setRoom, r, setFeedback }) => {
 	return (
 		<table>
 			<thead>
@@ -55,8 +55,14 @@ export const RoomsTable = ({ rooms, setRoom, setFeedback }) => {
 								<div className="btn-container">
 									<button
 										className="inside-login-btn auth-btn"
-										onClick={() => {
-											setRoom(room.name);
+										onClick={async () => {
+											let x = await results.filter(
+												(r) => r.value === room.name
+											)[0].desc;
+											console.log(x);
+											setRoom(x);
+											console.log(room.name);
+											console.log(r);
 										}}
 									>
 										Details

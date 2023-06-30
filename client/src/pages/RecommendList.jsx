@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { URL, id, results, role, token } from "../Consts";
+import { URL, id, role, token } from "../Consts";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { MatesTable } from "../components/MatesTable";
@@ -118,6 +118,10 @@ const RecommendList = () => {
 		getRecommends();
 	}, []);
 
+	useEffect(() => {
+		console.log(isRoom);
+	}, [isRoom]);
+
 	return (
 		<div className={`form-container back main ${role === "s" && "mar"}`}>
 			{role === "s" && (
@@ -152,6 +156,7 @@ const RecommendList = () => {
 			) : (
 				<RoomsTable
 					rooms={rooms}
+					r={isRoom}
 					setFeedback={setFeedback}
 					setRoom={setIsRoom}
 				/>
@@ -246,9 +251,10 @@ const RecommendList = () => {
 						}
 					>
 						{isRoom ? (
-							<h2>{results.filter((r) => r.value === isRoom)[0].desc}</h2>
+							<h2>{isRoom}</h2>
 						) : (
 							<h2>
+								<div>Name{"    "}Percentage</div>
 								{ops.map((op) => (
 									<div>
 										{op.name} {op.similarity}

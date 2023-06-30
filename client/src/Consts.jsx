@@ -1,6 +1,7 @@
 import Cookies from "universal-cookie";
 
-export const URL = "http://localhost:9090";
+// export const URL = "http://localhost:9090";
+export const URL = "https://fine-plum-rabbit-robe.cyclic.app";
 export const fileApi = "A1k2ydUGKQDCtHaCnNuwYz";
 export const genderOps = [
 	{ value: "m", label: "Male" },
