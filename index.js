@@ -33,6 +33,11 @@ mongoose
 
 /** Only start the server if its connected to mongo **/
 const StartServer = () => {
+    router.use(cors());
+    router.use(express.json());
+    router.use(express.urlencoded({ extended: true }));
+    router.use(bodyParser.urlencoded({ extended: true }));
+
     router.use((req, res, next) => {
         /** Log the Request */
         Logging.info(`Incoming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
@@ -45,23 +50,18 @@ const StartServer = () => {
         next();
     });
 
-    router.use(cors());
-    router.use(express.json());
-    router.use(express.urlencoded({ extended: true }));
-    router.use(bodyParser.urlencoded({ extended: true }));
-
     /** Rules of our API */
-    router.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    // router.use((req, res, next) => {
+    //     res.header('Access-Control-Allow-Origin', '*');
+    //     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-        if (req.method == 'OPTIONS') {
-            res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-            return res.status(200).json({});
-        }
+    //     if (req.method == 'OPTIONS') {
+    //         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    //         return res.status(200).json({});
+    //     }
 
-        next();
-    });
+    //     next();
+    // });
 
     /** Routes */
     router.use('/user', authRoutes);
@@ -71,7 +71,7 @@ const StartServer = () => {
     router.use('/recommend', recommendRoutes);
 
     /** Healthcheck */
-    router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
+    router.get('/ping', (req, res) => res.status(200).json({ message: 'pong' }));
 
     /** Error Handling */
     router.use((req, res, next) => {
