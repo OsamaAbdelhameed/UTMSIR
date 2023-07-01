@@ -9,8 +9,8 @@ const validateSchema = (schema) => {
             let isMates = 2;
             if (req.body.isMates) {
                 isMates = req.body.isMates;
-                delete req.body.isMates;
             }
+            delete req.body.isMates;
             await schema.validateAsync(req.body);
 
             if (isMates !== 2) {
