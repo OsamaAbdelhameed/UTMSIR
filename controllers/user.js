@@ -29,13 +29,14 @@ const login = async(req, res) => {
 const signup = async(req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const name = firstName + ' ' + lastName;
 
         const existed = await User.findOne({ email })
 
         if (existed)
-            return res.status(500).send({ message: 'Email already exists' })
+            return res.status(400).send({ message: 'Email already exists' })
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const name = firstName + ' ' + lastName;
 
         const user = new User({...req.body, name, password: hashedPassword, state: 'new' });
 
