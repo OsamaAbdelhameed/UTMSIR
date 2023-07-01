@@ -2,12 +2,12 @@ const { Comment, Post } = require("../models/post");
 
 const createPost = async(req, res) => {
     if (req.user.role === 'a' || req.user.role === 's')
-        return res.status(400).send({ message: 'Agents and owners only are allowed to create posts' });
-    if (req.user.role === 'o') {
+        return await res.status(400).send({ message: 'Agents and owners only are allowed to create posts' });
+    else if (req.user.role === 'o') {
         const numPosts = await Post.find({ owner: req.user.id })
             .then((posts) => posts.length)
             // console.log(numPosts)
-        if (numPosts >= 3) return res.status(500).send({ message: "Sorry, Owners can't have more than 3 posts" })
+        if (numPosts >= 3) return await res.status(500).send({ message: "Sorry, Owners can't have more than 3 posts" })
     }
 
     const post = new Post({...req.body });
