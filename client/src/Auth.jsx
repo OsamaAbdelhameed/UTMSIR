@@ -13,14 +13,13 @@ import { URL, fileApi, roleOps, genderOps, cookies } from "./Consts";
 
 const Auth = () => {
 	const [isSignup, setSignup] = useState(false);
-	const [form, setForm] = useState({ gender: "m", role: "s" });
+	const [form, setForm] = useState({ genchar: "m", role: "s" });
 	const [image, setImage] = useState("");
 
 	// isFile used to show if upload file checkbox is checked or not to display file input
 	const [isFile, setIsFile] = useState(false);
 	// isFile used to show if upload file checkbox is checked or not to display file input
 	const [isPicker, setIsPicker] = useState(false);
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(form);

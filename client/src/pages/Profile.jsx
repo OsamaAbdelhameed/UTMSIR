@@ -140,7 +140,7 @@ const Profile = ({ user, setUser }) => {
 					<h3>Full Name: {user.name}</h3>
 					<h3>Age: {user.age}</h3>
 					<h3>Phone: {user.phone}</h3>
-					<h3>Gender: {user.gender ? "Male" : "Female"}</h3>
+					<h3>Gender: {user.gender ? "Female" : "Male"}</h3>
 					{user.role === "s" && <h3>Study Field: {user.field}</h3>}
 					{user.role !== "a" && user.role !== "s" && (
 						<h3>Number of Houses: {user.numOfHouses}</h3>
