@@ -6,7 +6,7 @@ const createPost = async(req, res) => {
     if (req.user.role === 'o') {
         const numPosts = await Post.find({ owner: req.user.id })
             .then((posts) => posts.length)
-        console.log(numPosts)
+            // console.log(numPosts)
         if (numPosts >= 3) return res.status(500).send({ message: "Sorry, Owners can't have more than 3 posts" })
     }
 
